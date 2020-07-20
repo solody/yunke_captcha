@@ -1,0 +1,7 @@
+yunke_captcha settings:
+  title: 'captcha settings (yunke_captcha)'
+  description: 'The permission allows you to set or turn off captcha feature , it should be granted to trusted administrator'
+
+yunke_captcha exemption:
+  title: 'Captcha exempts (yunke_captcha)'
+  description: 'The captcha can be bypassed, the person with the captcha settings permission automatically has the permission'

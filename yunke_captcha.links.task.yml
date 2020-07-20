@@ -1,0 +1,14 @@
+yunke_captcha.admin:
+  title: 'Captcha manage'
+  route_name: yunke_captcha.admin
+  base_route: yunke_captcha.admin
+
+entity.yunke_captcha.collection:
+  title: 'Form captcha manage'
+  route_name: entity.yunke_captcha.collection
+  base_route: yunke_captcha.admin
+
+entity.yunke_captcha.edit_form:
+  title: 'Form captcha settings'
+  route_name: entity.yunke_captcha.edit_form
+  parent_id: entity.yunke_captcha.collection

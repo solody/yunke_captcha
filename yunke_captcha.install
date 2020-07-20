@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for yunke_captcha.
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function yunke_captcha_install() {
+  // Invalid page with form
+  drupal_flush_all_caches();
+  $moduleName = substr(__FUNCTION__, 0, -8);
+  _copy_translations($moduleName);
+}
+
+
+/**
+ * 将模块目录下的翻译文件复制到翻译流包装器目录中
+ *
+ * @param $moduleName
+ * 模块名
+ */
+function _copy_translations($moduleName) {
+  $directory = '/translations/';
+  $filename_mask = '/' . preg_quote('.po') . '$/';
+  $moduleHandler = \Drupal::moduleHandler();
+  if (!$moduleHandler->moduleExists('locale') || !$moduleHandler->moduleExists($moduleName)) {
+    return;
+  }
+  $langcodes = array_keys(locale_translatable_language_list());
+  if (empty($langcodes)) {
+    return;
+  }
+  $translationsDirectory = $moduleHandler->getModule($moduleName)
+      ->getPath() . $directory;
+  if (!is_dir($translationsDirectory)) {
+    return;
+  }
+  $files = \Drupal::service('file_system')
+    ->scanDirectory($translationsDirectory, $filename_mask, ['key'     => 'uri',
+                                                             'recurse' => FALSE,
+    ]);
+  if (empty($files)) {
+    return;
+  }
+  $translations = [];
+  foreach ($files as $uri => $file) {
+    $name = explode('.', $file->name);
+    $langcode = end($name);
+    if (in_array($langcode, $langcodes)) {
+      $translations[$file->filename] = $uri;
+    }
+  }
+  foreach ($translations as $filename => $uri) {
+    \Drupal::service('file_system')
+      ->copy($uri, 'translations://' . $filename, \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE);
+  }
+}
+
+

@@ -1,0 +1,6 @@
+yunke_captcha.add_form:
+  route_name: yunke_captcha.add_form
+  title: 'Add'
+  weight: -10
+  appears_on:
+    - entity.yunke_captcha.collection

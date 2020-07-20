@@ -1,0 +1,17 @@
+services:
+  plugin.manager.yunkeCaptcha:
+    class: Drupal\yunke_captcha\YunkeCaptchaPluginManager
+    arguments: ['@container.namespaces', '@cache.discovery', '@module_handler']
+  yunke_captcha.uninstall_validator:
+    class: Drupal\yunke_captcha\YunkeCaptchaUninstallValidator
+    arguments: ['@entity_type.manager', '@string_translation']
+    tags:
+      - { name: module_install.uninstall_validator }
+  yunke_captcha.semanticTestGeneratorManager:
+    class: Drupal\yunke_captcha\SemanticTestGeneratorManager
+    tags:
+      - { name: service_collector, tag: semantic_test_generator, call: addGenerator }
+  yunke_captcha.defaultSemanticTestGenerator:
+    class: Drupal\yunke_captcha\Component\Semantic\SemanticTestGenerator
+    tags:
+      - { name: semantic_test_generator, priority: 0 }

@@ -1,0 +1,7 @@
+yunke_captcha验证码模块官方网站:<a href="http://www.indrupal.com" target="_blank">水滴间</a><br>
+本软件开源并免费，以赞助维持发展，如有帮助欢迎赞助，金额不限：<a href="http://www.indrupal.com/zanzhu" target="_blank">点击扫码打赏</a><br>
+如你需要手机、邮件等类型的验证码请到本模块官网联系作者付费开发<br>
+想学习Drupal开发的用户推荐阅读中文原创系列：<a href="http://www.indrupal.com/drupaldoc" target="_blank">《云客drupal源码分析》</a><br>
+如果你想学习怎么把基于Drupal的网站做得好看一点，推荐：<a href="http://www.nowicode.com/bookpage/179" target="_blank">《听晴空讲Drupal主题（视频版）》</a><br><br>
+不想再看到本信息可以在模块根目录的“data”文件夹中修改或删除文件“declaration.txt”<br>
+If you don't want to see the above information again, you can modify or delete the file "Declaration.txt" in the "data" dir in the module root directory.

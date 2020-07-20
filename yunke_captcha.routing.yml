@@ -1,0 +1,107 @@
+#添加验证码
+yunke_captcha.add_form:
+  path: '/admin/config/system/yunke_captcha/form/add/{formID}/{label}'
+  defaults:
+    _controller: '\Drupal\yunke_captcha\Controller\AddFormCaptcha::add'
+    formID: NULL
+    label: NULL
+    _title: 'Add form captcha'
+  requirements:
+    _permission: 'yunke_captcha settings'
+  options:
+    _admin_route: TRUE
+
+#表单验证码设置编辑
+entity.yunke_captcha.edit_form:
+  path: '/admin/config/system/yunke_captcha/form/{yunke_captcha}'
+  defaults:
+    _entity_form: yunke_captcha.default
+    _title: 'Edit form captcha'
+  requirements:
+    _permission: 'yunke_captcha settings'
+    _entity_access: 'yunke_captcha.update'
+  options:
+    _admin_route: TRUE
+
+#删除表单验证码
+entity.yunke_captcha.delete_form:
+  path: '/admin/config/system/yunke_captcha/form/{yunke_captcha}/delete'
+  defaults:
+    _entity_form: yunke_captcha.delete
+    _title: 'Delete form captcha'
+  requirements:
+    _permission: 'yunke_captcha settings'
+    _entity_access: 'yunke_captcha.delete'
+  options:
+    _admin_route: TRUE
+
+#表单启用验证码
+entity.yunke_captcha.enable:
+  path: '/admin/config/system/yunke_captcha/form/{yunke_captcha}/enable'
+  defaults:
+    _controller: '\Drupal\yunke_captcha\Controller\CaptchaStatusController::performOperation'
+    op: enable
+    _title: 'Enable form captcha'
+  requirements:
+    _permission: 'yunke_captcha settings'
+    _entity_access: 'yunke_captcha.enable'
+    _csrf_token: 'TRUE'
+  options:
+    _admin_route: TRUE
+
+#表单禁用验证码
+entity.yunke_captcha.disable:
+  path: '/admin/config/system/yunke_captcha/form/{yunke_captcha}/disable'
+  defaults:
+    _controller: '\Drupal\yunke_captcha\Controller\CaptchaStatusController::performOperation'
+    op: disable
+    _title: 'Disable form captcha'
+  requirements:
+    _permission: 'yunke_captcha settings'
+    _entity_access: 'yunke_captcha.disable'
+    _csrf_token: 'TRUE'
+  options:
+    _admin_route: TRUE
+
+#验证码表单管理列表
+entity.yunke_captcha.collection:
+  path: '/admin/config/system/yunke_captcha/form'
+  defaults:
+    _entity_list: 'yunke_captcha'
+    _title: 'Form captcha manage'
+  requirements:
+    _permission: 'yunke_captcha settings'
+  options:
+    _admin_route: TRUE
+
+#刷新验证码
+yunke_captcha.refreshCaptcha:
+  path: '/yunke_captcha/{formID}/{pageID}'
+  defaults:
+    _controller: '\Drupal\yunke_captcha\Controller\RefreshCaptcha::getRefresh'
+  options:
+    no_cache: TRUE
+  requirements:
+    _permission: 'access content'
+
+#输出验证码图片
+yunke_captcha.imageCaptcha:
+  path: '/yunke_captcha/image_captcha/{formID}/{pageID}'
+  defaults:
+    _controller: '\Drupal\yunke_captcha\Controller\ImageCaptcha::getImage'
+  options:
+    no_cache: TRUE
+  requirements:
+    _permission: 'access content'
+
+#验证码通用管理
+yunke_captcha.admin:
+  path: '/admin/config/system/yunke_captcha'
+  defaults:
+    _form: '\Drupal\yunke_captcha\Form\yunkeCaptchaAdminForm'
+    _title: 'Captcha manage'
+  requirements:
+    _permission: 'yunke_captcha settings'
+  options:
+    _admin_route: TRUE
+

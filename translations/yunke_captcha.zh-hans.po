@@ -1,0 +1,312 @@
+# Chinese, Simplified translation
+#
+msgid ""
+msgstr ""
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+
+msgid "Multiple types of captchas are provided for forms to prevent malicious submissions"
+msgstr "为表单提供多种类型的验证码，防止恶意提交"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Enable"
+msgstr "启用"
+
+msgid "Disable"
+msgstr "禁用"
+
+msgid "Captcha settings"
+msgstr "验证码管理"
+
+msgid "Form captcha management (module:yunke_captcha)"
+msgstr "yunke_captcha模块表单验证码管理"
+
+msgid "Captcha manage"
+msgstr "验证码通用管理"
+
+msgid "Captcha manage(yunke_captcha)"
+msgstr "验证码通用管理（yunke_captcha模块）"
+
+msgid "Form captcha manage"
+msgstr "验证码表单管理"
+
+msgid "Form captcha settings"
+msgstr "表单验证码配置管理"
+
+msgid "<p>Provides multiple form captcha to prevent malicious form submission<br><a href=\"http://www.indrupal.com/\">official home</a></p>"
+msgstr "<p>提供多种表单验证码功能，阻止恶意表单提交<br><a href=\"http://www.indrupal.com/\">访问模块官方首页</a></p>"
+
+msgid "captcha settings (yunke_captcha)"
+msgstr "验证码设置权限（yunke_captcha模块）"
+
+msgid "The permission allows you to set or turn off captcha feature , it should be granted to trusted administrator"
+msgstr "yunke_captcha模块为表单提供验证码，拥有该权限可以设置或关闭验证码功能，应授予可信的管理员"
+
+msgid "Captcha exempts (yunke_captcha)"
+msgstr "免除验证码权限（yunke_captcha模块）"
+
+msgid "The captcha can be bypassed, the person with the captcha settings permission automatically has the permission"
+msgstr "yunke_captcha模块为表单提供验证码，拥有该权限可以跳过验证码，具有设置权限的人员自动拥有免输验证码权限"
+
+msgid "Add form captcha"
+msgstr "添加表单验证码"
+
+msgid "Edit form captcha"
+msgstr "表单验证码编辑"
+
+msgid "Delete form captcha"
+msgstr "表单验证码删除"
+
+msgid "Enable form captcha"
+msgstr "表单验证码启用"
+
+msgid "Disable form captcha"
+msgstr "表单验证码禁用"
+
+msgid "Captcha"
+msgstr "验证码"
+
+msgid "Captcha field name"
+msgstr "验证码字段名"
+
+msgid "Captcha valid time"
+msgstr "验证码有效期"
+
+msgid "Captcha default type"
+msgstr "默认验证类型"
+
+msgid "Captcha is managed from forms"
+msgstr "是否从表单管理"
+
+msgid "the module provides a captcha checker in use, form:( :label ), <a href=\":url\">Remove</a>"
+msgstr "有表单验证码正在使用该模块提供的验证器，表单：（:label）, <a href=\":url\">去删除</a>"
+
+msgid "Form ID"
+msgstr "表单ID"
+
+msgid "Form page"
+msgstr "表单使用页"
+
+msgid "Captcha type"
+msgstr "验证码类型"
+
+msgid "Captcha has been cancelled, to refresh the page"
+msgstr "验证码已取消，请刷新页面"
+
+msgid "Non-refreshing captcha"
+msgstr "不可刷新的验证码"
+
+msgid "Image error"
+msgstr "图片错误"
+
+msgid "Captcha status has been updated"
+msgstr "验证码启禁用状态已更新"
+
+msgid "form captcha"
+msgstr "表单验证码"
+
+msgid "form captchas"
+msgstr "表单验证码"
+
+msgid "@count form captcha"
+msgid_plural "@count form captchas"
+msgstr[0] "@count 个表单验证码"
+msgstr[1] "@count 个表单验证码"
+
+msgid "The form_id field value of the form, It cannot be edited unless being created new. If you do not know how to fill here, you can open the 'Captcha is managed from forms' and add it directly from the form page"
+msgstr "表单的form_id字段值，非新建操作不允许修改，如你不知道如何填写，可开启从表单管理验证码后，直接从表单页面添加"
+
+msgid "Form page name"
+msgstr "表单页面名称"
+
+msgid "Use the name for management"
+msgstr "使用该表单的页面名称，帮助管理"
+
+msgid "Different types of captchas work differently, you can extend more types through the plugin mechanism"
+msgstr "不同类型的验证码验证原理不同，你可以通过插件机制扩展更多类型"
+
+msgid "Non-configurable captcha checker"
+msgstr "此验证器无需配置"
+
+msgid "Captcha %label settings has been updated"
+msgstr "表单验证码配置 %label 已被更新"
+
+msgid "Captcha %label settings has been updated, <a href=\"%link\">Edit</a>"
+msgstr "表单验证码配置 %label 已被更新, <a href=\"%link\">编辑</a>"
+
+msgid "Captcha %label settings has been saved"
+msgstr "表单验证码配置 %label 已保存"
+
+msgid "Captcha %label settings has been saved, <a href=\"%link\">Edit</a>"
+msgstr "表单验证码配置 %label 已保存,<a href=\"%link\">编辑</a>"
+
+msgid "The Settings on this page will be applied to all forms with captcha enabled. Click the form captcha manage TAB for a specific form"
+msgstr "本页设置将应用到站点所有启用验证码的表单，具体某个表单的验证码管理请点击表单管理选项卡"
+
+msgid "Whether to display a captcha manage link in form, Only for users with captcha settings permission"
+msgstr "是否在表单中显示验证码管理链接，仅适用于有验证码管理权限的用户"
+
+msgid "When enabled, captcha related Settings can be directly managed in the target form. Because the manage link will be added to all forms (including the admin form) of the whole site, it is strongly recommended to close the option after completing the configuration of the captcha"
+msgstr "开启后可在目标表单中直接管理验证码相关设置，因该项开启后会为全站所有表单（包括管理表单）添加管理链接，因此强烈建议完成全站验证码配置工作后关闭该项"
+
+msgid "Enable manage from form"
+msgstr "开启从表单管理"
+
+msgid "default captcha field name"
+msgstr "默认验证码字段名"
+
+msgid "The label that appears before a captcha field, usually \"Captcha\",You can customize it here"
+msgstr "显示在验证码字段前面的文字，通常为“验证码”，在这里可自定义"
+
+msgid "default captcha valid time"
+msgstr "默认验证码有效期"
+
+msgid "An integer, in seconds, defaults to 10800 (3 hours), after which the captcha must be fetched again before submission"
+msgstr "一个整数，单位为秒，默认为10800（3小时），生成验证码后超过该时间必须重新刷新获取才能提交"
+
+msgid "default captcha type"
+msgstr "默认验证码类型"
+
+msgid "The default type used when creating a captcha for a form. Each form can be configured independently"
+msgstr "为表单新建验证码时采用的默认类型，各表单可独立配置"
+
+msgid "input default captcha field name"
+msgstr "请设置默认验证码字段名"
+
+msgid "Save successfully"
+msgstr "保存成功"
+
+msgid "Image captcha"
+msgstr "图片验证码"
+
+msgid "Display captcha in an image with disturbance pixels, support Chinese, Letters, Numbers and Symbols"
+msgstr "用有干扰像素的图片显示验证码，支持中文、字母、数字以及特殊符号"
+
+msgid "number"
+msgstr "数字"
+
+msgid "letter"
+msgstr "大小写字母"
+
+msgid "specific symbol"
+msgstr "特殊符号"
+
+msgid "chinese character"
+msgstr "中文汉字"
+
+msgid "If left blank, the default captcha field name will be used"
+msgstr "留空将采用系统默认验证码字段名"
+
+msgid "captcha input field widget size"
+msgstr "验证码输入框尺寸"
+
+msgid "An integer, default 30"
+msgstr "一个整数，默认为30"
+
+msgid "Whether letters are case sensitive"
+msgstr "字母是否区分大小写"
+
+msgid "Not recommended, it is difficult to recognize the case in image, Enable will increase the probability of error"
+msgstr "建议不要区分，图片中较难识别大小写，选中该项将增加输错概率"
+
+msgid "The types of characters that captcha can contain"
+msgstr "验证码可包含的字符类型"
+
+msgid "Number of captcha characters"
+msgstr "验证码字符个数"
+
+msgid "at least one"
+msgstr "至少一个"
+
+msgid "Captcha image width"
+msgstr "验证码图片宽度"
+
+msgid "An integer in pixels"
+msgstr "以像素为单位的一个整数"
+
+msgid "Captcha image height"
+msgstr "验证码图片高度"
+
+msgid "Disturbance pixels density"
+msgstr "干扰像素浓度"
+
+msgid "The ratio of disturbance pixels to the total pixels of the image, between 0 and 1, if 0, disturbance pixels will not be added"
+msgstr "干扰像素和图片总像素的比值，0到1之间，0将不添加"
+
+msgid "Captcha characters turn into sand"
+msgstr "验证码字符是否允许沙粒化"
+
+msgid "Random to display captcha characters like sand falling to the ground, the disturbance pixels are mixed together, more difficult to identify"
+msgstr "随机开启像沙粒落地一样显示,和干扰像素融合在一起，破解识别难度更大"
+
+msgid "Number of disturbance lines"
+msgstr "干扰直线条数"
+
+msgid "0 will not be added, left blank will be generated automatically according to the image size"
+msgstr "0将不添加，留空将依据图片大小自动产生"
+
+msgid "Number of disturbance arcs"
+msgstr "干扰弧线条数"
+
+msgid "image type"
+msgstr "图像格式"
+
+msgid "Captcha image format type（MimeType）"
+msgstr "验证码图像格式（MimeType）"
+
+msgid "The captcha characters type is incorrect or not selected"
+msgstr "验证码字符类型错误或未选择"
+
+msgid "error"
+msgstr "错误"
+msgid "expired, please refresh"
+msgstr "已失效,请刷新"
+
+msgid "case sensitive"
+msgstr "区分大小写"
+
+msgid "case insensitive"
+msgstr "不区分大小写"
+
+msgid "input the characters in image, "
+msgstr "请输入图片中的字符，"
+
+msgid "Refresh"
+msgstr "刷新"
+
+msgid "Missing Captcha"
+msgstr "验证码丢失"
+
+msgid "Semantic answer"
+msgstr "语义问答"
+
+msgid "To simulate Turing test, randomly extract questions from semantic question-answering library for verification, it is suggested to set up semantic question-answering library first"
+msgstr "模拟图灵测试，随机从语义问答库提取问题进行验证，建议先设置语义问答库"
+
+msgid "Whether to enable automatic semantic libraries"
+msgstr "是否启用自动语义库"
+
+msgid "When enabled, System can automatically generate semantic questions, which are recommended when the number of semantic libraries is insufficient"
+msgstr "启用后可采用程序自动生成的语义问答，当人工语义库数量不足时建议开启"
+
+msgid "Probability of applying automatic semantic libraries"
+msgstr "采用自动语义库的概率"
+
+msgid "Between 0 and 1, if 0, Automatic semantic libraries will not be used at all, the higher the number, the higher the probability, if 1, it is all"
+msgstr "0到1之间的数字，0将完全不采用自动语义库，数字越大概率越高,1将完全采用"
+
+msgid "input the answer to the above question. if need to another question, then refresh, "
+msgstr "请输入以上问题的答案，换一个问题请刷新，"
+

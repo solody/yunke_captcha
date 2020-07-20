@@ -1,0 +1,6 @@
+yunke_captcha.admin:
+  title: 'Captcha settings'
+  description: 'Form captcha management (module:yunke_captcha)'
+  parent: system.admin_config_system
+  route_name: yunke_captcha.admin
+

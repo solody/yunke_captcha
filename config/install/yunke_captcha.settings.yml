@@ -1,0 +1,13 @@
+title: Captcha
+#默认验证码字段标题
+
+invalid_time: 10800
+#默认验证码有效时间 默认3小时
+
+captchaDefaultType: image
+#默认验证码类型 当表单未指定具体类型时使用
+
+manageFromForm: true
+#是否在表单页添加验证码管理控件，仅适用于有验证码管理权限的用户
+
+

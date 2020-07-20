@@ -1,0 +1,268 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\Component\Render\PlainTextOutput;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Cache\Cache;
+
+/**
+ * Implements hook_help().
+ */
+function yunke_captcha_help($route_name, $route_match) {
+  switch ($route_name) {
+    case 'help.page.yunke_captcha':
+      return '<p>Provides multiple form captcha to prevent malicious form submission<br><a href="http://www.indrupal.com/">official home</a></p>';
+  }
+}
+
+/**
+ * 注册主题钩子
+ *
+ * @return array
+ */
+function yunke_captcha_theme() {
+  return [
+    'yunke_captcha_checker_settings' => [
+      'render element' => 'element',
+    ],
+    'yunke_captcha_captcha'          => [
+      'render element' => 'element',
+    ],
+    'yunke_captcha_ask'              => [
+      'render element' => 'element',
+    ],
+    'yunke_captcha_input'            => [
+      'render element' => 'element',
+    ],
+    'yunke_captcha_description'      => [
+      'render element' => 'element',
+    ],
+
+  ];
+}
+
+/**
+ * Implements  hook_form_alter()
+ *
+ * @param                    $form
+ * @param FormStateInterface $form_state
+ * @param                    $form_id
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
+function yunke_captcha_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  //为所有表单设置缓存标签，使得设置变化时废除缓存，本模块初始安装时会失效所有缓存内容，见安装钩子
+  $cacheTags = [
+    'yunkeCaptcha',
+    'config:yunke_captcha.formSettings.' . $form_id,
+  ];
+  if (isset($form['#cache']['tags'])) {
+    $form['#cache']['tags'] = Cache::mergeTags((array) $form['#cache']['tags'], $cacheTags);
+  }
+  else {
+    $form['#cache']['tags'] = $cacheTags;
+  }
+
+  $cacheContexts = ['user', 'user.roles', 'user.permissions'];
+  if (isset($form['#cache']['contexts'])) {
+    $form['#cache']['contexts'] = Cache::mergeContexts((array) $form['#cache']['contexts'], $cacheContexts);
+  }
+  else {
+    $form['#cache']['contexts'] = $cacheContexts;
+  }
+
+  //本模块管理表单免除验证码。管理后台是否也免除？这让用户自行决定
+  $ignoredForms = [
+    'yunke_captcha_admin_form',
+    'yunke_captcha_form',
+    'yunke_captcha_delete_form',
+  ];
+  if (in_array($form_id, $ignoredForms)) {
+    return;
+  }
+
+  $isNeedCaptcha = TRUE;
+  $isEntityExist = NULL;
+  $entityStatus = NULL;
+  $isNeedManage = FALSE;
+  $captchaEntityID = \Drupal::entityQuery('yunke_captcha')
+    ->condition('id', $form_id)
+    ->execute();
+  if (empty($captchaEntityID)) {
+    $isEntityExist = FALSE;
+  }
+  else {
+    $isEntityExist = TRUE;
+    $entityStatus = \Drupal::entityTypeManager()
+      ->getStorage('yunke_captcha')
+      ->load($form_id)
+      ->status();
+  }
+
+  if ($isEntityExist === FALSE || empty($entityStatus)) {
+    $isNeedCaptcha = FALSE;
+  }
+  if (\Drupal::currentUser()->hasPermission('yunke_captcha exemption')
+    || \Drupal::currentUser()->hasPermission('yunke_captcha settings')) {
+    $isNeedCaptcha = FALSE;
+  }
+
+  if (\Drupal::config('yunke_captcha.settings')->get('manageFromForm')
+    && \Drupal::currentUser()->hasPermission('yunke_captcha settings')) {
+    $isNeedManage = TRUE;
+  }
+  if ($isNeedCaptcha || $isNeedManage) {
+    $form['yunke_captcha'] = [
+      '#type' => 'container',
+    ];
+    if (isset($form['#pre_render'])) {
+      $form['#pre_render'] = (array) $form['#pre_render'];
+      $form['#pre_render'][] = '\Drupal\yunke_captcha\TrustedCallbacks::sortCaptcha';
+    }
+    else {
+      $form['#pre_render'] = ['\Drupal\yunke_captcha\TrustedCallbacks::sortCaptcha'];
+    }
+  }
+
+  if ($isNeedCaptcha) {
+    //添加验证码
+    $form['yunke_captcha']['captcha'] = [
+      '#type' => 'yunke_captcha',
+    ];
+  }
+
+  if ($isNeedManage) {
+    //添加验证码管理链接
+    $form['yunke_captcha']['manage'] = [
+      '#title'              => t('Captcha manage'),
+      '#type'               => FALSE, //迁就webform模块报错而设置，本身并无必要
+      //'#description'=>t('(yunke_captcha)'),
+      '#theme'              => 'details',
+      '#attributes'         => [
+        'open' => TRUE,
+        'id'   => 'yunke_captcha_manage_' . $form_id,
+      ],
+      '#summary_attributes' => [],
+    ];
+    //$option = ['attributes' => ['target' => '_blank']];
+    $option = []; //通常不需要新开页面，且这样体验也不好
+    if (!$isEntityExist) {
+      //添加链接
+      $label = !empty($form['#title']) ? $form['#title'] : '';
+      if (empty($label)) {
+        $label = \Drupal::service('title_resolver')
+          ->getTitle(\Drupal::request(), \Drupal::routeMatch()
+            ->getRouteObject());
+      }
+      if (is_array($label)) {
+        $label = \Drupal::service('renderer')->renderPlain($label);
+      }
+      $label = PlainTextOutput::renderFromHtml($label);
+      $label = str_replace(['\\', '/', '?'], '_', $label);
+      $form['yunke_captcha']['manage']['#value']['add'] = [
+        '#type'  => 'link',
+        '#title' => t('Add'),
+        '#url'   => Url::fromRoute('yunke_captcha.add_form', [
+          'formID' => $form_id,
+          'label'  => $label,
+        ], $option),
+      ];
+    }
+    else {
+      //编辑
+      $form['yunke_captcha']['manage']['#value']['edit'] = [
+        '#type'   => 'link',
+        '#title'  => t('Edit'),
+        '#url'    => Url::fromRoute('entity.yunke_captcha.edit_form', ['yunke_captcha' => $form_id], $option),
+        '#suffix' => ' ',
+      ];
+
+      //删除
+      $form['yunke_captcha']['manage']['#value']['delete'] = [
+        '#type'   => 'link',
+        '#title'  => t('Delete'),
+        '#url'    => Url::fromRoute('entity.yunke_captcha.delete_form', ['yunke_captcha' => $form_id], $option),
+        '#suffix' => ' ',
+      ];
+
+      if (empty($entityStatus)) {
+        //启用
+        $form['yunke_captcha']['manage']['#value']['enable'] = [
+          '#type'  => 'link',
+          '#title' => t('Enable'),
+          '#url'   => Url::fromRoute('entity.yunke_captcha.enable', ['yunke_captcha' => $form_id], $option),
+        ];
+      }
+      else {
+        //禁用
+        $form['yunke_captcha']['manage']['#value']['disable'] = [
+          '#type'  => 'link',
+          '#title' => t('Disable'),
+          '#url'   => Url::fromRoute('entity.yunke_captcha.disable', ['yunke_captcha' => $form_id], $option),
+        ];
+      }
+    }
+  }
+
+}
+
+/**
+ * 排序验证码字段位置，让其在表单末尾
+ *
+ * @param $element 表单元素
+ *
+ * @return array
+ */
+function _yunke_captcha_sortCaptcha($element) {
+  if (!isset($element['yunke_captcha'])) {
+    //预防其他模块干扰
+    return $element;
+  }
+  $yunkeCaptcha = $element['yunke_captcha'];
+  unset($element['yunke_captcha']);
+  unset($element['#sorted']);
+  $childrenKeys = Element::children($element, TRUE);
+
+  $newElement = [];
+  //复制属性
+  foreach ($element as $key => $value) {
+    if ($key[0] === '#') {
+      $newElement[$key] = $element[$key];
+    }
+  }
+
+  //查找第一个'submit'或'actions'元素，后者优先，在其前放入验证码
+  //仅查找第一层键名，如果支持嵌套那么情况将变得复杂，这样的情况少见，不值得花费资源
+  $submitElement = FALSE;
+  foreach (['submit', 'actions'] as $elementType) {
+    foreach ($childrenKeys as $childrenKey) {
+      if (isset($element[$childrenKey]['#type']) && $element[$childrenKey]['#type'] === $elementType) {
+        $submitElement = $childrenKey;
+        break;
+      }
+    }
+  }
+
+  foreach ($childrenKeys as $childrenKey) {
+    if ($childrenKey === $submitElement) {
+      $newElement['yunke_captcha'] = $yunkeCaptcha;
+      $newElement[$childrenKey] = $element[$childrenKey];
+      if (isset($element[$childrenKey]['#weight'])) {
+        $newElement['yunke_captcha']['#weight'] = $element[$childrenKey]['#weight'] - 0.00001;
+      }
+    }
+    else {
+      $newElement[$childrenKey] = $element[$childrenKey];
+    }
+  }
+
+  //没有在第一层键名中找到提交元素则将验证码置于最后
+  if (!$submitElement) {
+    $newElement['yunke_captcha'] = $yunkeCaptcha;
+  }
+  return $newElement;
+}
+
+

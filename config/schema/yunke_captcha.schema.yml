@@ -1,0 +1,12 @@
+title:
+  type: label
+  label: 'Captcha field name'
+invalid_time:
+  type: integer
+  label: 'Captcha valid time'
+captchaDefaultType:
+  type: string
+  label: 'Captcha default type'
+manageFromForm:
+  type: boolean
+  label: 'Captcha is managed from forms'
