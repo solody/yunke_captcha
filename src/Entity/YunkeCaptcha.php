@@ -56,6 +56,7 @@ use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
  *     "plugin",
  *     "configuration",
  *     "status",
+ *     "auto_attached",
  *   }
  * )
  */
@@ -89,6 +90,13 @@ class YunkeCaptcha extends ConfigEntityBase implements YunkeCaptchaInterface, En
    * @var array
    */
   protected $configuration = [];
+
+  /**
+   * 是否自动添加到表单
+   *
+   * @var bool
+   */
+  protected $auto_attached = true;
 
   /**
    * The plugin collection that stores Checker plugins.
@@ -156,6 +164,22 @@ class YunkeCaptcha extends ConfigEntityBase implements YunkeCaptchaInterface, En
     return $this;
   }
 
+  /**
+   * @inheritDoc
+   */
+  public function isAutoAttached()
+  {
+    return (bool)$this->get('auto_attached');
+  }
+
+  /**
+   * @inheritDoc
+   */
+  public function setAutoAttached($auto_attached)
+  {
+    $this->set('auto_attached', $auto_attached);
+    return $this;
+  }
 
   /**
    * {@inheritdoc}

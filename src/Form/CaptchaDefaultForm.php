@@ -59,6 +59,13 @@ class CaptchaDefaultForm extends EntityForm {
       '#default_value' => $entity->label(),
       '#description'   => t('Use the name for management'),
     ];
+    $form['auto_attached'] = [
+      '#type'          => 'checkbox',
+      '#required'      => FALSE,
+      '#title'         => t('Auto attached'),
+      '#default_value' => $entity->isAutoAttached(),
+      '#description'   => t('Whether or not auto attach to the form.'),
+    ];
     $captchaType = [];
     foreach ($this->pluginManagerYunkeCaptcha->getDefinitions() as $pluginID => $definitions) {
       $captchaType[$pluginID] = $definitions['label'];

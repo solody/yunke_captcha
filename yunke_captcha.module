@@ -95,13 +95,14 @@ function yunke_captcha_form_alter(&$form, FormStateInterface $form_state, $form_
   }
   else {
     $isEntityExist = TRUE;
-    $entityStatus = \Drupal::entityTypeManager()
+    /** @var \Drupal\yunke_captcha\Entity\YunkeCaptchaInterface $entity */
+    $entity = \Drupal::entityTypeManager()
       ->getStorage('yunke_captcha')
-      ->load($form_id)
-      ->status();
+      ->load($form_id);
+    $entityStatus = $entity->status();
   }
 
-  if ($isEntityExist === FALSE || empty($entityStatus)) {
+  if ($isEntityExist === FALSE || empty($entityStatus) || !$entity->isAutoAttached()) {
     $isNeedCaptcha = FALSE;
   }
   if (\Drupal::currentUser()->hasPermission('yunke_captcha exemption')

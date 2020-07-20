@@ -43,6 +43,21 @@ interface YunkeCaptchaInterface {
   public function setCaptchaType($captchaType);
 
   /**
+   * 判断是否自动附加到表单
+   *
+   * @return bool
+   */
+  public function isAutoAttached();
+
+  /**
+   * 设置是否自动附加到表单
+   *
+   * @param $auto_attached
+   * @return $this
+   */
+  public function setAutoAttached($auto_attached);
+
+  /**
    * 返回验证器插件对象
    *
    * @return \Drupal\yunke_captcha\CheckerInterface
