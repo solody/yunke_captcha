@@ -424,6 +424,9 @@ class SemanticChecker extends ConfigurableCheckerBase implements RefreshableChec
     }
     if ($input !== $key) {
       $form_state->setError($form, $form['#title'] . ' ' . t('error'));
+      $form_state->set('yunke_captcha_status', false);
+    } else {
+      $form_state->set('yunke_captcha_status', true);
     }
     unset($captcha[$pluginID][$formID][$pageID]);
     $session->set('yunkeCaptcha', $captcha);
